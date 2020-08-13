@@ -33,30 +33,22 @@ class GetWeatherCommandWithoutMockTest extends TestCase
 
     public function testShouldThrowExceptionForEmptyCitynameArgument()
     {
-        $this->expectException(WeatherException::class);
-        $this->expectExceptionMessage('Enter city name!');
-        $this->expectExceptionCode(400);
- 
+        $this->expectOutputString('Enter city name!');
         $this->weatherCommand->getWeather([]);
     }
 
-    public function testShouldThrowExceptionForInvalidCitynameArgument()
+    public function testShouldDisplayErrorForInvalidCitynameArgument()
     {
         $cityname = 'TESTCITY';
- 
-        $this->expectException(WeatherException::class);
-        $this->expectExceptionMessage('City name does not exist!');
-        $this->expectExceptionCode(400);
-
+        $this->expectOutputString('City name does not exist!');
         $this->weatherCommand->getWeather([$cityname]);
     }
 
     public function testShouldReturnWeatherData()
     {  
-        $actualResult = $this->weatherCommand->getWeather(['Munich']);
- 
-        $this->assertTrue(!empty($actualResult));
-        $this->assertIsString($actualResult);
-        $this->assertStringEndsWith('degrees celcius' . PHP_EOL, $actualResult);
+        $cityname = 'Munich';
+        $this->weatherCommand->getWeather([$cityname]);
+
+        $this->assertStringEndsWith('degrees celcius' . PHP_EOL, $this->getActualOutput());
     }
 }

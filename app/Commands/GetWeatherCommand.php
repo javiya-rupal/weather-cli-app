@@ -79,7 +79,7 @@ class GetWeatherCommand
                 throw $this->throwException(sprintf('Failed to get weather data for "%s".', $cityName));
             }
         } catch (WeatherException $e) {
-            echo $e->getMessage() . PHP_EOL;
+            echo $e->getMessage();
         }
     }
 

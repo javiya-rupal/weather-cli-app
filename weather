@@ -8,9 +8,8 @@ require "app/bootstrap.php";
 use App\Commands\GetWeatherCommand,
     GuzzleHttp\Client;
 
-array_shift($argv);
-
 $client = new Client();
 $app = new GetWeatherCommand($client, $apiCredentials);
 
+array_shift($argv);
 $app->getWeather($argv);

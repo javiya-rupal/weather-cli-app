@@ -15,41 +15,31 @@ class GetWeatherCommandWithMockTest extends TestCase
 {
     public function testShouldThrowExceptionForEmptyCitynameArgument()
     {
-        $this->expectException(WeatherException::class);
-        $this->expectExceptionMessage('Enter city name!');
-        $this->expectExceptionCode(400);
- 
+        $this->expectOutputString('Enter city name!');
         $weatherCommand = $this->getWeatherCommandObject(400);
- 
         $weatherCommand->getWeather([]);
     }
 
     public function testShouldThrowExceptionForInvalidCitynameArgument()
     {
         $cityname = 'TESTCITY';
- 
         $body = file_get_contents(__DIR__.'/Mock/CityWeather/invalid-cityname-weather-response-body.json');
+        
+        $this->expectOutputString('City name does not exist!');
 
-        $this->expectException(WeatherException::class);
-        $this->expectExceptionMessage('City name does not exist!');
-        $this->expectExceptionCode(400);
- 
         $weatherCommand = $this->getWeatherCommandObject(200, $body);
- 
         $weatherCommand->getWeather([$cityname]);
     }
 
     public function testShouldReturnWeatherData()
     {
-        $expectedResult = 'Clear sky, 28.26 degrees celcius'. PHP_EOL;
-
+        $cityname = 'TESTCITY';
         $body = file_get_contents(__DIR__.'/Mock/CityWeather/weather-response-body.json');
- 
+
+        $this->expectOutputString('Clear sky, 28.26 degrees celcius'. PHP_EOL);
+
         $weatherCommand = $this->getWeatherCommandObject(200, $body);
- 
-        $actualResult = $weatherCommand->getWeather(['Munich']);
- 
-        $this->assertEquals($expectedResult, $actualResult);
+        $weatherCommand->getWeather([$cityname]);
     }
     
     private function getWeatherCommandObject($status, $body = null)
