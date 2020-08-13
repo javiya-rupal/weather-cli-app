@@ -1,7 +1,7 @@
-# weather-app
+# weather-cli-app
 Basic CLI API integration of gettings weather of any city.
 
-## Installation, Configure and Run
+# Installation, Configure and Run
 * Clone git repository in your server.
 * Create `.env` by copy from `.env.example`.
 * Set API credentials and details in `.env` file.
@@ -9,7 +9,7 @@ Basic CLI API integration of gettings weather of any city.
 * Set executable permission on weather file. run command `chmod 755 weather` for that.
 * Now Run the API with command `./weather London`
 
-## Unittest
+# Unittest
 * `./vendor/bin/phpunit --bootstrap tests/bootstrap.php tests` run in console to run the unit-tests.
 
 # Global Requisites
@@ -26,7 +26,6 @@ Basic CLI API integration of gettings weather of any city.
 │   │   ├── GetWeatherCommand.php
 │   ├── Exception
 │   │   ├── WeatherException.php
-│   │   └── NativeEvent.ts
 │   ├── bootstrap.php
 ├── config
 │   ├── app.php
