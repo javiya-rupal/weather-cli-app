@@ -13,6 +13,4 @@ array_shift($argv);
 $client = new Client();
 $app = new GetWeatherCommand($client, $apiCredentials);
 
-$weatherTexts = $app->getWeather($argv);
-
-echo $weatherTexts . PHP_EOL;
+$app->getWeather($argv);

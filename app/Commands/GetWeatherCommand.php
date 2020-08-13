@@ -9,16 +9,34 @@ use App\Exception\WeatherException,
     GuzzleHttp\Psr7\Response,
     GuzzleHttp\Psr7\Stream;
 
+/**
+ * GetWeatherCommand
+ * 
+ * @package    Commands
+ * @author     Rupal Javiya <rupal.javiya@gmail.com>
+ */
 class GetWeatherCommand
 {   
+    /**
+     * Client Object for http curl request
+     *
+     * @var Client
+     */
     private Client $client;
 
+    /**
+     * Full URL for getting weather from third party weather API
+     *
+     * @var string
+     */
     private string $apiUrl;
 
-    private string $apiKey;
-
-    private string $apiUnit;
-
+    /**
+     * Class constructor
+     * 
+     * @param Client $client client object for http call
+     * @param array $apiCredentials Weather API credentials
+     */
     public function __construct(Client $client, array $apiCredentials)
     {
         $this->client = $client;
@@ -28,12 +46,18 @@ class GetWeatherCommand
         '&appid='.$apiCredentials['opMapApiKey'];
     }
 
-    public function getWeather(array $args): string
+    /**
+     * Get weather of given location.
+     *
+     * @param array $args cityname parameter passed as argument in command
+     */
+    public function getWeather(array $args): void
     {
-        if (!isset($args[0])) {
-            throw $this->throwException('Enter city name!');
-        }
         try {
+            if (!isset($args[0])) {
+                throw $this->throwException('Enter city name!');
+            }
+
             $cityName = $args[0];
             
             //Weather API integration
@@ -49,18 +73,22 @@ class GetWeatherCommand
                 $weatherTexts = ucfirst($weatherData['list'][0]['weather']['0']['description']). 
                 ', ' . $weatherData['list'][0]['main']['temp'] .' degrees celcius';
                 
-                return $weatherTexts . PHP_EOL;
+                echo $weatherTexts . PHP_EOL;
                 
             } else {
                 throw $this->throwException(sprintf('Failed to get weather data for "%s".', $cityName));
             }
-        } catch (Throwable $e) {
-            throw $this->throwException(sprintf('Failed to get weather data for "%s".', $cityName));
+        } catch (WeatherException $e) {
+            echo $e->getMessage() . PHP_EOL;
         }
     }
-    
-    //private fn throwException($message, $code = 400) => throw new WeatherException($message, $code);
 
+    /**
+     * Handle exception
+     *
+     * @param string $message exception message
+     * @param int $code http return code 
+     */
     private function throwException(string $message, int $code = 400): void
     {
         throw new WeatherException($message, $code);
