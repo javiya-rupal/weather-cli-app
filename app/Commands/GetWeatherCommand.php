@@ -4,10 +4,7 @@ declare(strict_types=1);
 namespace App\Commands;
 
 use App\Exception\WeatherException,
-    GuzzleHttp\Client,
-    GuzzleHttp\Exception\ClientException,
-    GuzzleHttp\Psr7\Response,
-    GuzzleHttp\Psr7\Stream;
+    GuzzleHttp\Client;
 
 /**
  * GetWeatherCommand

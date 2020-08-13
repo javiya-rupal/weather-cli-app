@@ -31,7 +31,7 @@ class GetWeatherCommandWithoutMockTest extends TestCase
         $this->weatherCommand = null;
     }
 
-    public function testShouldThrowExceptionForEmptyCitynameArgument()
+    public function testShouldDisplayErrorForEmptyCitynameArgument()
     {
         $this->expectOutputString('Enter city name!');
         $this->weatherCommand->getWeather([]);
@@ -47,8 +47,8 @@ class GetWeatherCommandWithoutMockTest extends TestCase
     public function testShouldReturnWeatherData()
     {  
         $cityname = 'Munich';
+        $regex='/^[A-Z].*?(degrees celcius)?/s';
+        $this->expectOutputRegex($regex);
         $this->weatherCommand->getWeather([$cityname]);
-
-        $this->assertStringEndsWith('degrees celcius' . PHP_EOL, $this->getActualOutput());
     }
 }

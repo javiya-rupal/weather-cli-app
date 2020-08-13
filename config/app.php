@@ -11,7 +11,7 @@ class AppConfig {
      * Get all configuration values.
      * @return array
      */
-    public static function getApiCredentials()
+    public static function getApiCredentials(): array
     {
         $apiCredentials['opMapApiUrl']  = $_ENV['OPEN_WEATHER_MAP_API_URL'];
         $apiCredentials['opMapApiKey']  = $_ENV['OPEN_WEATHER_MAP_API_KEY'];

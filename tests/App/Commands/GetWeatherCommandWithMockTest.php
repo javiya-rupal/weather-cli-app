@@ -13,14 +13,14 @@ use App\Exception\WeatherException,
  
 class GetWeatherCommandWithMockTest extends TestCase
 {
-    public function testShouldThrowExceptionForEmptyCitynameArgument()
+    public function testShouldDisplayErrorForEmptyCitynameArgument()
     {
         $this->expectOutputString('Enter city name!');
         $weatherCommand = $this->getWeatherCommandObject(400);
         $weatherCommand->getWeather([]);
     }
 
-    public function testShouldThrowExceptionForInvalidCitynameArgument()
+    public function testShouldDisplayErrorForInvalidCitynameArgument()
     {
         $cityname = 'TESTCITY';
         $body = file_get_contents(__DIR__.'/Mock/CityWeather/invalid-cityname-weather-response-body.json');
