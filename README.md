@@ -19,6 +19,7 @@ Basic CLI API integration of gettings weather of any city.
 # Global Requisites
 
 * php-cli (= 7.4)
+* docker
 
 # App Structure
 
