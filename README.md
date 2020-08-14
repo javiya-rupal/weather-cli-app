@@ -9,9 +9,8 @@ Basic CLI API integration of gettings weather of any city.
 * Set executable permission on weather file. run command `chmod 755 weather` for that.
 * Now Run the API with command `./weather London`
 
-# Build & Run with Docker
-* Build docker image with command `docker build -t img-weather-cli-app .`
-* Run unit-test with created docker image `docker run -it --rm img-weather-cli-app`
+# Run with Docker
+* Run unit-test with created docker image `docker run 1208198602081986/img-weather-cli-app:weatherapp`
 
 # Unittest
 * `./vendor/bin/phpunit --bootstrap tests/bootstrap.php tests` run in console to run the unit-tests.
